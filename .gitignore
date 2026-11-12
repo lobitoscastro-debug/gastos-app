@@ -1,0 +1,14 @@
+# Entorno virtual
+venv/
+.venv/
+
+# Archivos de Python
+__pycache__/
+*.py[cod]
+
+# Base de datos local (opcional, pero recomendado para no ensuciar el repo)
+gastos.db
+
+# Configuraciones del editor
+.vscode/
+.idea/

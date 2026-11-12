@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reporte de Gastos</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📊 Reporte de Gastos</h1>
+      <nav>
+        <a href="{{ url_for('index') }}">⬅ Volver</a>
+        <a href="#" onclick="window.print()">🖨️ Imprimir</a>
+      </nav>
+    </header>
+
+    <p><em>Generado el {{ fecha_generacion }}</em></p>
+
+    <div class="card">
+      <h2>Resumen por mes</h2>
+      <table>
+        <thead>
+          <tr><th>Mes</th><th>Total</th></tr>
+        </thead>
+        <tbody>
+          {% for mes, total_mes in por_mes %}
+          <tr>
+            <td>{{ mes }}</td>
+            <td class="monto">${{ '%.2f'|format(total_mes) }}</td>
+          </tr>
+          {% else %}
+          <tr><td colspan="2">Sin datos</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h2>Detalle completo</h2>
+      <table>
+        <thead>
+          <tr><th>Fecha</th><th>Descripción</th><th>Monto</th></tr>
+        </thead>
+        <tbody>
+          {% for g in gastos %}
+          <tr>
+            <td>{{ g.fecha }}</td>
+            <td>{{ g.descripcion }}</td>
+            <td class="monto">${{ '%.2f'|format(g.monto) }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"><b>Total general</b></td>
+            <td class="monto"><b>${{ '%.2f'|format(total) }}</b></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
